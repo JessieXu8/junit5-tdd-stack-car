@@ -1,7 +1,9 @@
 package com.thoughtworks.tdd;
 
+
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -35,5 +37,20 @@ public class ParkingLotTest {
         Receipt receipt = parkingLot.park(theCar);
 
         assertThat(parkingLot.unPark(receipt), is(theCar));
+    }
+    @Test
+    public void should_not_get_specific_car_when_call_unPark_given_receipt_is_wrong(){
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        Car theCar = new Car();
+        Receipt receipt = parkingLot.park(theCar);
+        Receipt anotherReceipt = new Receipt();
+        assertThat(parkingLot.unPark(anotherReceipt), not(theCar));
+    }
+    @Test
+    public void should_be_true_when_call_isFull_given_parking_lot_is_full(){
+        ParkingLot parkingLot = new ParkingLot(0);
+
+        assertThat(parkingLot.isFull(),is(true));
     }
 }

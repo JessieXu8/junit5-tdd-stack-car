@@ -29,4 +29,12 @@ public class ParkingLot {
 //        }
         return list.remove(receipt);
     }
+
+    public boolean isFull() {
+        if (size == 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
