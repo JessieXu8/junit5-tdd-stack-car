@@ -54,17 +54,34 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_not_park_successfully_when_call_addCar_given_ParkingBoy_managed_parkingLot_is_null(){
+    public void should_unpark_successfully_when_call_unpark_twice_given_ParkingBoy_managed_parkingLot_is_two(){
         ParkingBoy parkingBoy = new ParkingBoy();
-        parkingBoy.addParkingLot(new ParkingLot(0));
+        parkingBoy.addParkingLot(new ParkingLot(1));
+        parkingBoy.addParkingLot(new ParkingLot(1));
+        Receipt receipt1 = parkingBoy.park(new Car());
+        Receipt receipt2 = parkingBoy.park(new Car());
 
         try{
-            parkingBoy.park(new Car());
-            fail("should park successfully");
-        }catch (ParkingBoyManagedParkingLotIsFullException e){
+            parkingBoy.unPark(receipt1);
+            parkingBoy.unPark(receipt2);
 
+        }catch (ParkingBoyManagedParkingLotIsFullException e){
+            fail("should unpark successfully");
         }
     }
+
+//    @Test
+//    public void should_not_park_successfully_when_call_addCar_given_ParkingBoy_managed_parkingLot_is_null(){
+//        ParkingBoy parkingBoy = new ParkingBoy();
+//        parkingBoy.addParkingLot(new ParkingLot(0));
+//
+//        try{
+//            parkingBoy.park(new Car());
+//            fail("should park successfully");
+//        }catch (ParkingBoyManagedParkingLotIsFullException e){
+//
+//        }
+//    }
 
 //    @Test
 //    public void should_unpark_successfully_when_call_takeoutCar_given_car_is_in_ParkingBoy_managed_parkingLot(){
