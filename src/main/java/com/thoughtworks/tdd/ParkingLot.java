@@ -13,7 +13,7 @@ public class ParkingLot {
     }
 
     public Receipt park(Car car) {
-        if (size == 0){
+        if (isFull()){
             throw new ParkingLotFullException();
         }
         Receipt receipt =new Receipt();
@@ -26,7 +26,7 @@ public class ParkingLot {
     }
 
     public boolean isFull() {
-        if (size == 0){
+        if (size == list.size()){
             return true;
         }else {
             return false;

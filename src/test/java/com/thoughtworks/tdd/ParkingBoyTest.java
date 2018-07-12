@@ -70,6 +70,22 @@ public class ParkingBoyTest {
         }
     }
 
+    @Test
+    public void should_park_in_order_when_call_park_twice_given_the_car_is_park_twice_at_ParkingBoy_managed_parkingLot(){
+        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        parkingBoy.addParkingLot(parkingLot1);
+        parkingBoy.addParkingLot(parkingLot2);
+        Car car1 = new Car();
+        Receipt receipt1 = parkingBoy.park(car1);
+        Car car2 = new Car();
+        Receipt receipt2 = parkingBoy.park(car2);
+
+        assertThat(parkingLot1.list.get(receipt1),is(car1));
+        assertThat(parkingLot2.list.get(receipt2),is(car2));
+    }
+
 //    @Test
 //    public void should_not_park_successfully_when_call_addCar_given_ParkingBoy_managed_parkingLot_is_null(){
 //        ParkingBoy parkingBoy = new ParkingBoy();
