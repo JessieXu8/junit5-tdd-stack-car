@@ -4,25 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingBoy {
+
     private List<ParkingLot> parkingLots = new ArrayList<>();
 
-    public List<ParkingLot> addParkingLot(ParkingLot parkingLot) {
+    public void addParkingLot(ParkingLot parkingLot) {
         parkingLots.add(parkingLot);
-        return parkingLots;
     }
 
-    public void addCar(List<ParkingLot> parkingLots, Car car) {
+    public Receipt park( Car car) {
 //        parkingLots.forEach(parkingLot->parkingLot.isFull());
         boolean flag = false;
+        Receipt receipt = new Receipt();
         for( ParkingLot parkingLot: parkingLots){
             if (!parkingLot.isFull()){
                 flag = true;
-                parkingLot.park(car);
+                receipt = parkingLot.park(car);
                 break;
             }
         }
         if (flag == false){
-            throw new ParkingBoyManagedParkingLotIsFull();
+            throw new ParkingBoyManagedParkingLotIsFullException();
         }
+        return receipt;
+    }
+
+    public Car unPark(Receipt receipt) {
+        Car car = new Car();
+        for (ParkingLot parkingLot : parkingLots){
+            car=parkingLot.unPark(receipt);
+        }
+        return car;
+//        if (car == null){
+//            throw new BoyUnParkFailedException();
+//        }
     }
 }
