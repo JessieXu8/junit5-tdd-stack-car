@@ -85,7 +85,23 @@ public class ParkingBoyTest {
         assertThat(parkingLot1.list.get(receipt1),is(car1));
         assertThat(parkingLot2.list.get(receipt2),is(car2));
     }
+    @Test
+    public void should_unpark_failed_when_the_receipt_is_wrong_given_the_car_is_not_in_ParkingBoy_managed_parkingLot(){
+        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        parkingBoy.addParkingLot(parkingLot1);
+        Car car1 = new Car();
+        Receipt receipt1 = parkingBoy.park(car1);
+        Receipt receipt2 = new Receipt();
 
+        try {
+            parkingBoy.unPark(receipt2);
+
+            fail("should unpark successfully");
+        }catch (BoyUnParkFailedException e){
+
+        }
+    }
 //    @Test
 //    public void should_not_park_successfully_when_call_addCar_given_ParkingBoy_managed_parkingLot_is_null(){
 //        ParkingBoy parkingBoy = new ParkingBoy();

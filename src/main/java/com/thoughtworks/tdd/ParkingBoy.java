@@ -32,10 +32,14 @@ public class ParkingBoy {
         Car car = new Car();
         for (ParkingLot parkingLot : parkingLots){
             car=parkingLot.unPark(receipt);
+            if(car != null){
+                break;
+            }
+        }
+
+        if (car == null){
+            throw new BoyUnParkFailedException();
         }
         return car;
-//        if (car == null){
-//            throw new BoyUnParkFailedException();
-//        }
     }
 }
