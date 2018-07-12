@@ -38,7 +38,20 @@ public class ParkingBoyTest {
         assertThat(parkingBoy.unPark(receipt),is(car));
     }
 
+    @Test
+    public void should_park_successfully_when_call_park_twice_given_ParkingBoy_managed_parkingLot_is_two(){
+        ParkingBoy parkingBoy = new ParkingBoy();
+        parkingBoy.addParkingLot(new ParkingLot(1));
+        parkingBoy.addParkingLot(new ParkingLot(1));
 
+        try{
+            parkingBoy.park(new Car());
+            parkingBoy.park(new Car());
+
+        }catch (ParkingBoyManagedParkingLotIsFullException e){
+            fail("should park successfully");
+        }
+    }
 
     @Test
     public void should_not_park_successfully_when_call_addCar_given_ParkingBoy_managed_parkingLot_is_null(){
