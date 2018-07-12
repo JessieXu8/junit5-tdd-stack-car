@@ -22,11 +22,6 @@ public class ParkingLot {
     }
 
     public Car unPark(Receipt receipt) {
-//        try {
-//            return list.);
-//        }catch (ParkingLotFullException e){
-//
-//        }
         return list.remove(receipt);
     }
 
