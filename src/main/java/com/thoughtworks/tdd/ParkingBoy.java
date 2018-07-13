@@ -22,7 +22,7 @@ public class ParkingBoy {
                 break;
             }
         }
-        if (flag == false){
+        if (!flag){
             throw new ParkingBoyManagedParkingLotIsFullException();
         }
         return receipt;
