@@ -63,6 +63,21 @@ public class ParkingBoyTest {
         verify(parkingLot).unPark(receipt);
     }
     @Test
+    public void should_park_successfully_when_call_park_twice_given_ParkingBoy_managed_parkingLot_is_two_old(){
+        ParkingBoy parkingBoy = new ParkingBoy();
+        parkingBoy.addParkingLot(new ParkingLot(1));
+        parkingBoy.addParkingLot(new ParkingLot(1));
+
+        try{
+            parkingBoy.park(new Car());
+            parkingBoy.park(new Car());
+
+        }catch (ParkingBoyManagedParkingLotIsFullException e){
+            fail("should park successfully");
+        }
+    }
+
+    @Test
     public void should_park_successfully_when_call_park_twice_given_ParkingBoy_managed_parkingLot_is_two(){
         ParkingBoy parkingBoy = new ParkingBoy();
         parkingBoy.addParkingLot(new ParkingLot(1));
@@ -95,6 +110,10 @@ public class ParkingBoyTest {
     }
 
     @Test
+    public void should_(){
+        
+    }
+    @Test
     public void should_park_in_order_when_call_park_twice_given_the_car_is_park_twice_at_ParkingBoy_managed_parkingLot(){
         ParkingBoy parkingBoy = new ParkingBoy();
         ParkingLot parkingLot1 = new ParkingLot(1);
@@ -106,8 +125,8 @@ public class ParkingBoyTest {
         Car car2 = new Car();
         Receipt receipt2 = parkingBoy.park(car2);
 
-        assertThat(parkingLot1.list.get(receipt1),is(car1));
-        assertThat(parkingLot2.list.get(receipt2),is(car2));
+        assertThat(parkingLot1.mapOfReceiptAndCar.get(receipt1),is(car1));
+        assertThat(parkingLot2.mapOfReceiptAndCar.get(receipt2),is(car2));
     }
     @Test
     public void should_unpark_failed_when_the_receipt_is_wrong_given_the_car_is_not_in_ParkingBoy_managed_parkingLot(){
