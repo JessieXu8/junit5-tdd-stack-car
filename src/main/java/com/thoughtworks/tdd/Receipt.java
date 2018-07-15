@@ -3,21 +3,23 @@ package com.thoughtworks.tdd;
 import java.util.UUID;
 
 public class Receipt {
-    public UUID getReceipt() {
+
+    public Receipt() {
+        UUID uuid = UUID.randomUUID();
+        this.receipt = uuid.toString();
+    }
+
+    public Receipt(String receipt) {
+        this.receipt = receipt;
+    }
+
+    public String getReceipt() {
         return receipt;
     }
 
-    public void setReceipt(UUID receipt) {
+    public void setReceipt(String receipt) {
         this.receipt = receipt;
     }
 
-    public Receipt(UUID receipt) {
-        this.receipt = receipt;
-    }
-    public Receipt() {
-    }
-
-//    UUID receipt = UUID.randomUUID();
-    private UUID receipt ;
-//    String randomUUIDString = receipt.toString();
+    private String receipt ;
 }

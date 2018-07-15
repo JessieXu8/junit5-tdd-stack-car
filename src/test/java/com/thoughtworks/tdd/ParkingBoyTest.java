@@ -2,6 +2,7 @@ package com.thoughtworks.tdd;
 
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.hamcrest.CoreMatchers.is;
@@ -125,8 +126,8 @@ public class ParkingBoyTest {
         Car car2 = new Car();
         Receipt receipt2 = parkingBoy.park(car2);
 
-        assertThat(parkingLot1.mapOfReceiptAndCar.get(receipt1),is(car1));
-        assertThat(parkingLot2.mapOfReceiptAndCar.get(receipt2),is(car2));
+        assertThat(parkingLot1.mapOfReceiptAndCar.get(receipt1.getReceipt()),is(car1));
+        assertThat(parkingLot2.mapOfReceiptAndCar.get(receipt2.getReceipt()),is(car2));
     }
     @Test
     public void should_unpark_failed_when_the_receipt_is_wrong_given_the_car_is_not_in_ParkingBoy_managed_parkingLot(){
@@ -137,13 +138,7 @@ public class ParkingBoyTest {
         Receipt receipt1 = parkingBoy.park(car1);
         Receipt receipt2 = new Receipt();
 
-        try {
-            parkingBoy.unPark(receipt2);
-
-            fail("should unpark successfully");
-        }catch (BoyUnParkFailedException e){
-
-        }
+        assertThat(parkingBoy.unPark(receipt2),is(nullValue()));
     }
 //    @Test
 //    public void should_not_park_successfully_when_call_addCar_given_ParkingBoy_managed_parkingLot_is_null(){

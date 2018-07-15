@@ -2,36 +2,37 @@ package com.thoughtworks.tdd;
 
 import org.junit.jupiter.api.Test;
 
-import static com.thoughtworks.tdd.ParkingView.getMainGUI;
+//import static com.thoughtworks.tdd.ParkingView.getMainGUI;
+
+import java.util.Scanner;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.*;
 
 public class ParkingSystemTest {
     @Test
-    public void should_display_user_interface_when_call_getMainGUI(){
-        //given
-        StringBuffer excepted = new StringBuffer();
-        excepted.append("1. 停车\n2. 取车\n请输入您要进行的操作：");
-        //when
-        StringBuffer result= getMainGUI();
-        //then
-        assertThat(result.toString(),is(excepted.toString()));
+    public void should_call_park_given_choose_is_1_when_call_checkChoose ()throws Exception{
+        ParkingBoy parkingBoy = mock(ParkingBoy.class);
+        ParkingLot parkingLot = mock(ParkingLot.class);
+        parkingBoy.addParkingLot(parkingLot);
+        ParkingView view = mock(ParkingView.class);
+
+        ParkingController  parkingController = new ParkingController(view,parkingBoy);
+        String choose ="1";
+
+        Car car = new Car();
+        when(view.displayParkingLotIsNotFull()).thenReturn("N123");
+        when(parkingBoy.park(car)).thenReturn(new Receipt());
+        parkingController.checkChoose(choose);
+//        verify(parkingBoy).park(car);
+        verify(parkingBoy).isFull();
     }
 
     @Test
-    public void should_display_park_interface_when_input_choose_is_1(){
-        int choose = 1;
-
+    public void should_Take(){
+//        InputOutput inputOutput = new InputOutput();
+        Scanner scanner = mock(Scanner.class);
+        when(scanner.nextLine()).thenReturn("1");
     }
-
-//    @Test
-//    public void should_call_parkingGUI_given_choose_is_1_when_call_getChoose(){
-//        //given
-//        int choose = 1;
-//        //when
-//        getChoose(choose);
-//        //then
-//        assertThat();
-//    }
 }

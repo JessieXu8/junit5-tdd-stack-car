@@ -15,7 +15,7 @@ public class ParkingBoy {
     public Receipt park( Car car) {
 //        parkingLots.forEach(parkingLot->parkingLot.isFull());
         boolean flag = false;
-        Receipt receipt = new Receipt(UUID.randomUUID());
+        Receipt receipt = new Receipt();
         for( ParkingLot parkingLot: parkingLots){
             if (!parkingLot.isFull()){
                 flag = true;
@@ -30,17 +30,25 @@ public class ParkingBoy {
     }
 
     public Car unPark(Receipt receipt) {
-        Car car = new Car("G11");///////
+        Car car = new Car();
         for (ParkingLot parkingLot : parkingLots){
             car=parkingLot.unPark(receipt);
             if(car != null){
                 break;
             }
         }
-
-        if (car == null){
-            throw new BoyUnParkFailedException();
-        }
         return car;
+    }
+
+
+    public boolean isFull(){
+        boolean isFull = true;
+        for( ParkingLot parkingLot: parkingLots){
+            if (!parkingLot.isFull()){
+                isFull = false;
+                break;
+            }
+        }
+        return isFull;
     }
 }

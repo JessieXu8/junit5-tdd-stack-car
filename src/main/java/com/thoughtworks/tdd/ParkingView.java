@@ -3,13 +3,8 @@ package com.thoughtworks.tdd;
 import java.util.Scanner;
 
 public class ParkingView {
-    public static void main(String[] args) throws Exception {
-//        getMainGUI();
-//        int choose = 0;//////
-        getChoose();
-    }
 
-    public static StringBuffer getMainGUI() {
+    public StringBuffer getMainGUI() {
         StringBuffer display = new StringBuffer();
         display.append("1. 停车\n");
         display.append("2. 取车\n");
@@ -18,44 +13,34 @@ public class ParkingView {
         return display;
     }
 
-    public static void getChoose() throws Exception {
 
-        while (true) {
-            getMainGUI();
-            Scanner scanner = new Scanner(System.in);
-            String choose = scanner.nextLine();
-            try {
-                if (Integer.parseInt(choose) == 1) {
-                    //call parkGUI
-                    break;
-
-                } else if (Integer.parseInt(choose) == 2) {
-                    //call unparkGUI
-                    break;
-                } else {
-                    System.out.print("非法指令，请查证后再输\n");
-                }
-            } catch (Exception e) {
-                System.out.print("非法指令，请查证后再输\n");
-            }
-        }
+    public String displayParkingLotIsNotFull() {
+        System.out.print("请输入车牌号:");
+        Scanner scanner = new Scanner(System.in);
+        String carID = scanner.nextLine();
+        return carID;
     }
 
-    public static void displayParkingLotIsFull()throws Exception{
+    public void displayParkingLotIsFull() {
         System.out.print("车已停满，请晚点再来\n");
-        getChoose();
     }
 
-    public static void unparkGUI() throws Exception{
+    public void displayParkSuccessfull(Receipt receipt){
+        System.out.println("停车成功，您的小票是：\n"+receipt.getReceipt());
+    }
+
+    public String displayUnparkGUI() {
         System.out.print("请输入小票编号：");
         Scanner scanner = new Scanner(System.in);
         String receipt = scanner.nextLine();
-        //if receipt is existed
-        //
-        if(true){}
-        else {
-            System.out.println("非法小票，无法取出车，请查证后再输");
-            getChoose();
-        }
+        return receipt;
+    }
+
+    public void displayReceiptIsWrong() {
+        System.out.println("非法小票，无法取出车，请查证后再输");
+    }
+
+    public void displayReceiptIsTrue(Car car) {
+        System.out.println("车已取出，您的车牌号是: " + car.getCarID());
     }
 }
