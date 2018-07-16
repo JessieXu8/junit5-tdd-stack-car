@@ -3,68 +3,56 @@ package com.thoughtworks.tdd;
 import java.util.Scanner;
 
 public class ParkingController {
-    public ParkingController(ParkingView view, ParkingBoy parkingBoy) {
-        this.view = view;
-        this.parkingBoy = parkingBoy;
-    }
+    ParkingBoy parkingBoy;
+    ParkingView view = new ParkingView();
 
-    private ParkingView view;
-    private ParkingBoy parkingBoy;
 
-    public  void getChoose() throws Exception {
-
-        while (true) {
-            view.getMainGUI();
-            Scanner scanner = new Scanner(System.in);
-            String choose = scanner.nextLine();
-//            Receipt receipt ;
-            try {
-                if (checkChoose(choose))
-                    break;
-            } catch (Exception e) {
-                System.out.print("非法指令，请查证后再输\n");
-            }
-        }
-    }
-
-    public boolean checkChoose(String choose) throws Exception {
-        if (Integer.parseInt(choose) == 1) {
-            //call park
-            callPark();
-            return true;
-
-        } else if (Integer.parseInt(choose) == 2) {
-            //call unpark
-            callUnpark();
-            return true;
+    public String getParkStatus(ParkingBoy parkingBoy) {
+        String currentStatus;
+        if (parkingBoy.isFull()) {
+            currentStatus = "mainPage";
         } else {
-            System.out.print("非法指令，请查证后再输\n");
+            currentStatus = "parkPage";
         }
-        return false;
+        return currentStatus;
     }
 
-    public void callUnpark() throws Exception {
-        Receipt receipt = new Receipt(view.displayUnparkGUI()) ;
-
-        Car car = parkingBoy.unPark(receipt);
-        if (car == null){
-            view.displayReceiptIsWrong();
-            getChoose();
-        }else {
-            view.displayReceiptIsTrue(car);
-            getChoose();
-        }
-    }
-
-    public void callPark() throws Exception {
-        if (!parkingBoy.isFull()){
-            Car car = new Car(view.displayParkingLotIsNotFull());
-            Receipt receipt =parkingBoy.park(car);
-            view.displayParkSuccessfull(receipt);
-            getChoose();
-        }else {
+    public void getParkDisplay(String currentStatus) {
+        if (currentStatus == "mainPage") {
             view.displayParkingLotIsFull();
-            getChoose();
+            view.getMainGUI();
+        } else if (currentStatus == "parkPage") {
+            view.displayParkingLotIsNotFull();
         }
+    }
+
+    public void unparkController() {
+        view.displayUnparkGUI();
+    }
+
+    public void illegalController() {
+        view.displayIllegalInstruction();
+        view.getMainGUI();
+    }
+
+    public String getParkCommandController(String command, ParkingBoy parkingBoy) {
+        Car car = new Car(command);
+        Receipt receipt = parkingBoy.park(car);
+        view.displayParkSuccessfull(receipt);
+        String currentStatus = "mainPage";
+        view.getMainGUI();
+        return currentStatus;
+    }
+
+    public void getUnparkCommandController(String command, ParkingBoy parkingBoy) {
+        Receipt receipt = new Receipt(command);
+        Car car = parkingBoy.unPark(receipt);
+        if (car == null) {
+            view.displayReceiptIsWrong();
+        } else {
+            view.displayReceiptIsTrue(car);
+        }
+        view.getMainGUI();
     }
 }
+
