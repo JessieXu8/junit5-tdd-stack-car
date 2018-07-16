@@ -2,7 +2,7 @@ package com.thoughtworks.tdd;
 
 import org.junit.jupiter.api.Test;
 
-//import static com.thoughtworks.tdd.ParkingView.getMainGUI;
+//import static com.thoughtworks.tdd.ParkingView.displayParkingServerGUI;
 
 import java.util.Scanner;
 

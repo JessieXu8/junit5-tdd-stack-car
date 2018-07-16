@@ -1,7 +1,5 @@
 package com.thoughtworks.tdd;
 
-import java.util.Scanner;
-
 public class ParkingController {
     ParkingBoy parkingBoy;
     ParkingView view = new ParkingView();
@@ -10,7 +8,7 @@ public class ParkingController {
     public String getParkStatus(ParkingBoy parkingBoy) {
         String currentStatus;
         if (parkingBoy.isFull()) {
-            currentStatus = "mainPage";
+            currentStatus = "parkingLotMainPage";
         } else {
             currentStatus = "parkPage";
         }
@@ -18,9 +16,9 @@ public class ParkingController {
     }
 
     public void getParkDisplay(String currentStatus) {
-        if (currentStatus == "mainPage") {
+        if (currentStatus == "parkingLotMainPage") {
             view.displayParkingLotIsFull();
-            view.getMainGUI();
+            view.displayParkingGUI();
         } else if (currentStatus == "parkPage") {
             view.displayParkingLotIsNotFull();
         }
@@ -32,15 +30,15 @@ public class ParkingController {
 
     public void illegalController() {
         view.displayIllegalInstruction();
-        view.getMainGUI();
+        view.displayParkingGUI();
     }
 
     public String getParkCommandController(String command, ParkingBoy parkingBoy) {
         Car car = new Car(command);
         Receipt receipt = parkingBoy.park(car);
         view.displayParkSuccessfull(receipt);
-        String currentStatus = "mainPage";
-        view.getMainGUI();
+        String currentStatus = "parkingLotMainPage";
+        view.displayParkingGUI();
         return currentStatus;
     }
 
@@ -52,7 +50,11 @@ public class ParkingController {
         } else {
             view.displayReceiptIsTrue(car);
         }
-        view.getMainGUI();
+        view.displayParkingGUI();
+    }
+
+    public void mainParkingPageController() {
+        view.displayParkingServerGUI();
     }
 }
 

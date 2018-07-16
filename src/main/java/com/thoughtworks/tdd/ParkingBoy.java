@@ -5,11 +5,24 @@ import java.util.List;
 import java.util.UUID;
 
 public class ParkingBoy {
+    public static int count=0;
 
     private List<ParkingLot> parkingLots = new ArrayList<>();
 
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
+    }
+
+    public void setParkingLots(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
+    }
+
     public void addParkingLot(ParkingLot parkingLot) {
         parkingLots.add(parkingLot);
+    }
+
+    public void removeParkingLot(ParkingLot parkingLot){
+        parkingLots.remove(parkingLot);
     }
 
     public Receipt park( Car car) {
